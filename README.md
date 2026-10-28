@@ -1,8 +1,5 @@
 # AI-Powered Technical Interview Coach with Rubric-Based Feedback & Code Evaluation
 
-🎓 **College Seminar Project**  
-- **Presenter:** Abhay Gupta  
-
 ---
 
 ## 🌟 Overview
