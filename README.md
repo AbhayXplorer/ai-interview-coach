@@ -2,8 +2,6 @@
 
 🎓 **College Seminar Project**  
 - **Presenter:** Abhay Gupta  
-- **Roll Number:** 24UICS090  
-- **Track:** Generative AI, RAG & LLM Applications (Day 2, Session B: 09:00 – 09:10)  
 
 ---
 
