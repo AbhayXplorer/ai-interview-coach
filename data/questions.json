@@ -1,0 +1,288 @@
+[
+  {
+    "id": "two-sum",
+    "title": "Two Sum (Optimal Hash Map)",
+    "difficulty": "Easy",
+    "category": "Arrays & Hashing",
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
+    "entrypoint": "two_sum",
+    "function_signature": "def two_sum(nums: list[int], target: int) -> list[int]:",
+    "optimal_time": "O(N)",
+    "optimal_space": "O(N)",
+    "starter_code": "def two_sum(nums, target):\n    # Return [idx1, idx2] adding up to target\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "two_sum", "input_args": [[2, 7, 11, 15], 9], "expected": [0, 1], "hidden": false },
+      { "id": 2, "entrypoint": "two_sum", "input_args": [[3, 2, 4], 6], "expected": [1, 2], "hidden": false },
+      { "id": 3, "entrypoint": "two_sum", "input_args": [[3, 3], 6], "expected": [0, 1], "hidden": false },
+      { "id": 4, "entrypoint": "two_sum", "input_args": [[-1, -2, -3, -4, -5], -8], "expected": [2, 4], "hidden": true },
+      { "id": 5, "entrypoint": "two_sum", "input_args": [[0, 4, 3, 0], 0], "expected": [0, 3], "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Use a hash map to achieve one-pass O(N) time complexity by looking up the complement (target - num).",
+      "common_mistakes": [
+        "Using nested loops resulting in O(N^2) brute force without exploring hash table optimization.",
+        "Re-using the same element twice (e.g. nums[i] == target/2 returning [i, i]).",
+        "Two-pass hash map instead of single-pass, introducing minor unnecessary space/time overhead."
+      ],
+      "algorithmic_correctness_criteria": "Must accurately return 0-indexed integer list of 2 distinct indices. Handles negative integers and zeros correctly.",
+      "time_complexity_criteria": "O(N) is required for top tier. O(N^2) or nested loops drops score to <= 5/10.",
+      "space_complexity_criteria": "O(N) auxiliary space using dictionary/hash table is expected and accepted."
+    }
+  },
+  {
+    "id": "valid-anagram",
+    "title": "Valid Anagram & Frequency Counter",
+    "difficulty": "Easy",
+    "category": "Strings & Hashing",
+    "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise. An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
+    "entrypoint": "is_anagram",
+    "function_signature": "def is_anagram(s: str, t: str) -> bool:",
+    "optimal_time": "O(N)",
+    "optimal_space": "O(1) [fixed alphabet size 26] or O(K)",
+    "starter_code": "def is_anagram(s, t):\n    # Return True if t is an anagram of s, else False\n    if len(s) != len(t):\n        return False\n    counts = {}\n    for c in s:\n        counts[c] = counts.get(c, 0) + 1\n    for c in t:\n        if c not in counts or counts[c] == 0:\n            return False\n        counts[c] -= 1\n    return True\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "is_anagram", "input_args": ["anagram", "nagaram"], "expected": true, "hidden": false },
+      { "id": 2, "entrypoint": "is_anagram", "input_args": ["rat", "car"], "expected": false, "hidden": false },
+      { "id": 3, "entrypoint": "is_anagram", "input_args": ["a", "ab"], "expected": false, "hidden": false },
+      { "id": 4, "entrypoint": "is_anagram", "input_args": ["listen", "silent"], "expected": true, "hidden": true },
+      { "id": 5, "entrypoint": "is_anagram", "input_args": ["aacc", "ccac"], "expected": false, "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Character frequency mapping with early length check or 26-element array counting.",
+      "common_mistakes": [
+        "Sorting both strings (O(N log N)) without mentioning frequency map O(N) alternative.",
+        "Missing early length mismatch check (len(s) != len(t)).",
+        "Inefficient multiple string replacements or count() method inside loops causing O(N^2)."
+      ],
+      "algorithmic_correctness_criteria": "Correctly handles unicode or lowercase ASCII, duplicate letters, different string lengths.",
+      "time_complexity_criteria": "O(N) frequency counting. O(N log N) sorting is accepted only with clear trade-off articulation.",
+      "space_complexity_criteria": "O(1) auxiliary space (if 26 English letters) or O(K) where K is unique character count."
+    }
+  },
+  {
+    "id": "valid-parentheses",
+    "title": "Valid Parentheses (Stack LIFO)",
+    "difficulty": "Easy",
+    "category": "Stacks & Strings",
+    "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. Open brackets must be closed by the same type of brackets in the correct order, and every close bracket has a corresponding open bracket.",
+    "entrypoint": "is_valid",
+    "function_signature": "def is_valid(s: str) -> bool:",
+    "optimal_time": "O(N)",
+    "optimal_space": "O(N)",
+    "starter_code": "def is_valid(s):\n    # Return True if parentheses string is valid\n    mapping = {')': '(', '}': '{', ']': '['}\n    stack = []\n    for char in s:\n        if char in mapping:\n            top = stack.pop() if stack else '#'\n            if mapping[char] != top:\n                return False\n        else:\n            stack.append(char)\n    return not stack\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "is_valid", "input_args": ["()[]{}"], "expected": true, "hidden": false },
+      { "id": 2, "entrypoint": "is_valid", "input_args": ["(]"], "expected": false, "hidden": false },
+      { "id": 3, "entrypoint": "is_valid", "input_args": ["([)]"], "expected": false, "hidden": false },
+      { "id": 4, "entrypoint": "is_valid", "input_args": ["{[]}"], "expected": true, "hidden": true },
+      { "id": 5, "entrypoint": "is_valid", "input_args": [""], "expected": true, "hidden": true },
+      { "id": 6, "entrypoint": "is_valid", "input_args": [")("], "expected": false, "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Use a Last-In First-Out (LIFO) stack to match the most recently opened bracket with incoming closing brackets.",
+      "common_mistakes": [
+        "Using simple character counting instead of a stack (fails on '([)]').",
+        "Popping from an empty stack leading to IndexError on strings starting with closing brackets.",
+        "Forgetting to check if stack is empty at the end (fails on unclosed brackets like '(')."
+      ],
+      "algorithmic_correctness_criteria": "Correctly matches nested bracket hierarchies, handles empty strings and odd-length strings.",
+      "time_complexity_criteria": "O(N) single-pass stack traversal.",
+      "space_complexity_criteria": "O(N) space for stack storage."
+    }
+  },
+  {
+    "id": "binary-search",
+    "title": "Binary Search (Logarithmic Lookup)",
+    "difficulty": "Easy",
+    "category": "Searching",
+    "description": "Given a sorted ascending integer array nums and an integer target, write a function to search target in nums. If target exists, return its index. Otherwise, return -1. You must write an algorithm with O(log n) runtime complexity.",
+    "entrypoint": "search",
+    "function_signature": "def search(nums: list[int], target: int) -> int:",
+    "optimal_time": "O(log N)",
+    "optimal_space": "O(1)",
+    "starter_code": "def search(nums, target):\n    # Return index of target, or -1 if not found\n    low, high = 0, len(nums) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "search", "input_args": [[-1, 0, 3, 5, 9, 12], 9], "expected": 4, "hidden": false },
+      { "id": 2, "entrypoint": "search", "input_args": [[-1, 0, 3, 5, 9, 12], 2], "expected": -1, "hidden": false },
+      { "id": 3, "entrypoint": "search", "input_args": [[5], 5], "expected": 0, "hidden": true },
+      { "id": 4, "entrypoint": "search", "input_args": [[5], -5], "expected": -1, "hidden": true },
+      { "id": 5, "entrypoint": "search", "input_args": [[1, 2, 3, 4, 5, 6, 7, 8], 1], "expected": 0, "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Divide search interval in half by comparing target with midpoint in a sorted array.",
+      "common_mistakes": [
+        "Using linear O(N) search with 'in' operator, violating logarithmic O(log N) constraint.",
+        "Off-by-one errors in boundary updates (using low = mid instead of low = mid + 1, causing infinite loop).",
+        "Using while low < high instead of while low <= high, missing single-element searches."
+      ],
+      "algorithmic_correctness_criteria": "Correctly finds elements at edges (index 0 and len-1) and handles element absent cases.",
+      "time_complexity_criteria": "O(log N) strictly required. O(N) is an automatic failure of target complexity.",
+      "space_complexity_criteria": "O(1) constant auxiliary pointers."
+    }
+  },
+  {
+    "id": "max-subarray",
+    "title": "Maximum Subarray (Kadane's Algorithm)",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given an integer array nums, find the contiguous subarray with the largest sum, and return its sum.",
+    "entrypoint": "max_sub_array",
+    "function_signature": "def max_sub_array(nums: list[int]) -> int:",
+    "optimal_time": "O(N)",
+    "optimal_space": "O(1)",
+    "starter_code": "def max_sub_array(nums):\n    # Return the maximum contiguous subarray sum\n    max_so_far = nums[0]\n    current_sum = nums[0]\n    for num in nums[1:]:\n        current_sum = max(num, current_sum + num)\n        max_so_far = max(max_so_far, current_sum)\n    return max_so_far\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "max_sub_array", "input_args": [[-2, 1, -3, 4, -1, 2, 1, -5, 4]], "expected": 6, "hidden": false },
+      { "id": 2, "entrypoint": "max_sub_array", "input_args": [[1]], "expected": 1, "hidden": false },
+      { "id": 3, "entrypoint": "max_sub_array", "input_args": [[5, 4, -1, 7, 8]], "expected": 23, "hidden": false },
+      { "id": 4, "entrypoint": "max_sub_array", "input_args": [[-1, -2, -3, -4]], "expected": -1, "hidden": true },
+      { "id": 5, "entrypoint": "max_sub_array", "input_args": [[-2, -1]], "expected": -1, "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Kadane's Dynamic Programming: At each index, decide whether to extend previous subarray or start fresh with current number.",
+      "common_mistakes": [
+        "Brute force O(N^2) or O(N^3) checking all possible start and end indices.",
+        "Initializing max_sum to 0 instead of nums[0] (fails when all numbers are negative).",
+        "Incorrect state transition logic."
+      ],
+      "algorithmic_correctness_criteria": "Correctly handles arrays with all negative numbers and single-element inputs.",
+      "time_complexity_criteria": "O(N) linear single pass required. O(N^2) drops score significantly.",
+      "space_complexity_criteria": "O(1) constant in-place variables."
+    }
+  },
+  {
+    "id": "longest-substring",
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "Medium",
+    "category": "Sliding Window",
+    "description": "Given a string s, find the length of the longest substring without repeating characters.",
+    "entrypoint": "length_of_longest_substring",
+    "function_signature": "def length_of_longest_substring(s: str) -> int:",
+    "optimal_time": "O(N)",
+    "optimal_space": "O(min(N, M)) where M is alphabet size",
+    "starter_code": "def length_of_longest_substring(s):\n    # Return length of longest substring without duplicates\n    char_index = {}\n    max_len = 0\n    left = 0\n    for right, char in enumerate(s):\n        if char in char_index and char_index[char] >= left:\n            left = char_index[char] + 1\n        char_index[char] = right\n        max_len = max(max_len, right - left + 1)\n    return max_len\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "length_of_longest_substring", "input_args": ["abcabcbb"], "expected": 3, "hidden": false },
+      { "id": 2, "entrypoint": "length_of_longest_substring", "input_args": ["bbbbb"], "expected": 1, "hidden": false },
+      { "id": 3, "entrypoint": "length_of_longest_substring", "input_args": ["pwwkew"], "expected": 3, "hidden": false },
+      { "id": 4, "entrypoint": "length_of_longest_substring", "input_args": [""], "expected": 0, "hidden": true },
+      { "id": 5, "entrypoint": "length_of_longest_substring", "input_args": ["abba"], "expected": 2, "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Sliding window with hash map storing the most recent index of each character to skip duplicates in O(N).",
+      "common_mistakes": [
+        "Brute force O(N^3) checking every substring.",
+        "Failing the 'abba' case: not checking if duplicate char's previous index is inside the current window (char_index[char] >= left).",
+        "Failing on empty string or string with spaces and special symbols."
+      ],
+      "algorithmic_correctness_criteria": "Resolves empty string, all identical characters, and non-monotonic window shifts.",
+      "time_complexity_criteria": "O(N) sliding window with two pointers.",
+      "space_complexity_criteria": "O(K) auxiliary space for character window map."
+    }
+  },
+  {
+    "id": "merge-intervals",
+    "title": "Merge Overlapping Intervals",
+    "difficulty": "Medium",
+    "category": "Intervals & Sorting",
+    "description": "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    "entrypoint": "merge",
+    "function_signature": "def merge(intervals: list[list[int]]) -> list[list[int]]:",
+    "optimal_time": "O(N log N)",
+    "optimal_space": "O(N)",
+    "starter_code": "def merge(intervals):\n    # Sort intervals and merge overlapping spans\n    if not intervals:\n        return []\n    intervals.sort(key=lambda x: x[0])\n    merged = [intervals[0]]\n    for current in intervals[1:]:\n        prev = merged[-1]\n        if current[0] <= prev[1]:\n            prev[1] = max(prev[1], current[1])\n        else:\n            merged.append(current)\n    return merged\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "merge", "input_args": [[[1, 3], [2, 6], [8, 10], [15, 18]]], "expected": [[1, 6], [8, 10], [15, 18]], "hidden": false },
+      { "id": 2, "entrypoint": "merge", "input_args": [[[1, 4], [4, 5]]], "expected": [[1, 5]], "hidden": false },
+      { "id": 3, "entrypoint": "merge", "input_args": [[[1, 4], [2, 3]]], "expected": [[1, 4]], "hidden": true },
+      { "id": 4, "entrypoint": "merge", "input_args": [[[1, 4], [0, 4]]], "expected": [[0, 4]], "hidden": true },
+      { "id": 5, "entrypoint": "merge", "input_args": [[[1, 4], [0, 0]]], "expected": [[0, 0], [1, 4]], "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Sort intervals by start time; iteratively compare adjacent intervals and merge by updating max end time.",
+      "common_mistakes": [
+        "Attempting to merge without prior sorting, which fails on unordered intervals like [[1,4],[0,4]].",
+        "Overwriting end point with current[1] instead of max(prev[1], current[1]) when one interval completely subsumes another.",
+        "Incorrect boundary handling when current start equals previous end (e.g. [1,4] and [4,5])."
+      ],
+      "algorithmic_correctness_criteria": "Fully resolves unsorted lists, subsumed intervals, touching boundaries.",
+      "time_complexity_criteria": "O(N log N) dominated by sorting. Linear scan after sort.",
+      "space_complexity_criteria": "O(N) for output storage or sorting recursion stack."
+    }
+  },
+  {
+    "id": "climbing-stairs",
+    "title": "Climbing Stairs (Dynamic Programming)",
+    "difficulty": "Easy",
+    "category": "Dynamic Programming",
+    "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+    "entrypoint": "climb_stairs",
+    "function_signature": "def climb_stairs(n: int) -> int:",
+    "optimal_time": "O(N)",
+    "optimal_space": "O(1)",
+    "starter_code": "def climb_stairs(n):\n    # Return distinct ways to climb n stairs\n    if n <= 2:\n        return n\n    a, b = 1, 2\n    for _ in range(3, n + 1):\n        a, b = b, a + b\n    return b\n",
+    "test_cases": [
+      { "id": 1, "entrypoint": "climb_stairs", "input_args": [2], "expected": 2, "hidden": false },
+      { "id": 2, "entrypoint": "climb_stairs", "input_args": [3], "expected": 3, "hidden": false },
+      { "id": 3, "entrypoint": "climb_stairs", "input_args": [1], "expected": 1, "hidden": true },
+      { "id": 4, "entrypoint": "climb_stairs", "input_args": [5], "expected": 8, "hidden": true },
+      { "id": 5, "entrypoint": "climb_stairs", "input_args": [10], "expected": 89, "hidden": true }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "State transition f(n) = f(n-1) + f(n-2) computed iteratively with constant space.",
+      "common_mistakes": [
+        "Unmemoized recursion O(2^N) causing exponential Time Limit Exceeded (TLE).",
+        "Off-by-one base cases (e.g. n=1 returning 0 or crashing).",
+        "Allocating full array O(N) when only two rolling variables are required."
+      ],
+      "algorithmic_correctness_criteria": "Accurately handles small inputs (n=1, n=2) and larger sequences without integer overflow.",
+      "time_complexity_criteria": "O(N) linear iteration required. O(2^N) recursion is penalized heavily.",
+      "space_complexity_criteria": "O(1) rolling variables or O(N) memoization array."
+    }
+  },
+  {
+    "id": "lru-cache",
+    "title": "LRU Cache Design & Implementation",
+    "difficulty": "Hard",
+    "category": "System Design & Data Structures",
+    "description": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. Implement LRUCache class with get(key) and put(key, value) in O(1) average time complexity.",
+    "entrypoint": "test_lru_simulation",
+    "function_signature": "class LRUCache: ...",
+    "optimal_time": "O(1) for both get and put operations",
+    "optimal_space": "O(Capacity)",
+    "starter_code": "class Node:\n    def __init__(self, key=0, val=0):\n        self.key = key\n        self.val = val\n        self.prev = None\n        self.next = None\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.cap = capacity\n        self.cache = {}\n        self.head = Node()\n        self.tail = Node()\n        self.head.next = self.tail\n        self.tail.prev = self.head\n\n    def _remove(self, node):\n        node.prev.next = node.next\n        node.next.prev = node.prev\n\n    def _add(self, node):\n        node.prev = self.head\n        node.next = self.head.next\n        self.head.next.prev = node\n        self.head.next = node\n\n    def get(self, key: int) -> int:\n        if key in self.cache:\n            node = self.cache[key]\n            self._remove(node)\n            self._add(node)\n            return node.val\n        return -1\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self._remove(self.cache[key])\n        node = Node(key, value)\n        self._add(node)\n        self.cache[key] = node\n        if len(self.cache) > self.cap:\n            lru = self.tail.prev\n            self._remove(lru)\n            del self.cache[lru.key]\n\ndef test_lru_simulation(operations, args):\n    obj = None\n    results = []\n    for op, arg in zip(operations, args):\n        if op == 'LRUCache':\n            obj = LRUCache(*arg)\n            results.append(None)\n        elif op == 'put':\n            obj.put(*arg)\n            results.append(None)\n        elif op == 'get':\n            results.append(obj.get(*arg))\n    return results\n",
+    "test_cases": [
+      {
+        "id": 1,
+        "entrypoint": "test_lru_simulation",
+        "input_args": [
+          ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"],
+          [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+        ],
+        "expected": [null, null, null, 1, null, -1, null, -1, 3, 4],
+        "hidden": false
+      },
+      {
+        "id": 2,
+        "entrypoint": "test_lru_simulation",
+        "input_args": [
+          ["LRUCache", "put", "get", "put", "get", "get"],
+          [[1], [2, 1], [2], [3, 2], [2], [3]]
+        ],
+        "expected": [null, null, 1, null, -1, 2],
+        "hidden": true
+      }
+    ],
+    "rubric_benchmark": {
+      "key_insight": "Combine a Hash Map (O(1) key-to-node lookup) with a Doubly Linked List (O(1) insertion/eviction at head and tail).",
+      "common_mistakes": [
+        "Using a simple list or array for eviction tracking, leading to O(N) get or put complexity.",
+        "Failing to update recency order when a key is read via get().",
+        "Memory leak or broken pointer updates in doubly linked list edge operations (empty cache or single item)."
+      ],
+      "algorithmic_correctness_criteria": "Strict adherence to LRU eviction policy; constant time operations without edge case null pointer crashes.",
+      "time_complexity_criteria": "O(1) average time complexity for both get and put operations is strictly enforced.",
+      "space_complexity_criteria": "O(Capacity) auxiliary memory usage bounded strictly by cache capacity limit."
+    }
+  }
+]

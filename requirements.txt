@@ -1,0 +1,6 @@
+# TechInterview Coach AI - Optional Extended Dependencies
+# Note: The platform runs with 100% functionality on Python 3 Standard Library!
+# The packages below are optional for advanced production setups or direct SDK usage.
+
+google-genai>=0.1.1
+requests>=2.31.0

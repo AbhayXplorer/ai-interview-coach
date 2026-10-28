@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechInterview Coach AI | Autonomous Rubric Evaluation & Code Sandbox</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top App Navigation Bar -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo">AI</div>
+      <div class="brand-title">
+        <h1>TechInterview Coach AI</h1>
+        <div class="brand-subtitle">RAG-Grounded Rubric Evaluation & Code Sandbox</div>
+      </div>
+      <!-- Active Provider Badge -->
+      <div id="active-provider-pill" class="meta-pill" style="display: flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.65rem; border-radius: 9999px; background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); cursor: pointer;" onclick="document.getElementById('settings-modal').style.display='flex'">
+        <span id="active-provider-dot" style="width: 7px; height: 7px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+        <span id="active-provider-text">Google Gemini 2.5 Flash</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-home">🏠 Home</button>
+      <button class="tab-btn" data-tab="tab-arena">💻 Interview Arena</button>
+      <button class="tab-btn" data-tab="tab-eval">📊 Rubric Scorecard</button>
+      <button class="tab-btn" data-tab="tab-rag">🔍 RAG Architecture</button>
+    </nav>
+
+    <div class="header-actions">
+      <button id="btn-settings" class="btn-secondary">⚙️ AI Provider</button>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+
+    <!-- ================= TAB 0: HOME / LANDING PAGE ================= -->
+    <section id="tab-home" class="tab-pane active">
+      <div class="home-container">
+        
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <div class="hero-pill">
+            <span>✨</span> Dual-Engine Code Evaluation & Hybrid RAG Grounding
+          </div>
+          <h1 class="hero-title">
+            Master Technical Interviews With<br>
+            <span class="gradient-text">Rubric-Grounded AI</span>
+          </h1>
+          <p class="hero-subtitle">
+            Beyond binary pass/fail test runs. Experience real-time Socratic mock interviewing, 
+            deterministic AST complexity analysis, and 5-dimensional hiring committee evaluations grounded in FAANG standards.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-hero-primary" onclick="navigateToTab('tab-arena')">
+              🚀 Start Live Interview
+            </button>
+            <button class="btn-hero-secondary" onclick="navigateToTab('tab-eval')">
+              📊 5-D Rubric Matrix
+            </button>
+            <button class="btn-hero-secondary" onclick="navigateToTab('tab-rag')">
+              🔍 Inspect RAG Engine
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Counter Banner -->
+        <div class="stats-banner">
+          <div class="stat-box">
+            <div class="stat-number">9+</div>
+            <div class="stat-label">Core FAANG Patterns</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">5-D</div>
+            <div class="stat-label">Weighted Hiring Rubric</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">Hybrid</div>
+            <div class="stat-label">BM25 + Cosine Vector RAG</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">&lt; 20ms</div>
+            <div class="stat-label">Subprocess Sandbox Latency</div>
+          </div>
+        </div>
+
+        <!-- 3 Core Pillars Section -->
+        <h2 class="home-section-title">Architectural Pillars</h2>
+        <p class="home-section-sub">Engineered to eliminate hallucination and deliver objective technical feedback</p>
+        
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">💬</div>
+            <h3 class="pillar-title">Socratic Interviewer</h3>
+            <p class="pillar-desc">
+              Does not blurt out the code solution. Probes your thought process with progressive hints, 
+              evaluates edge case awareness, and guides algorithmic invariants like a real senior interviewer.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee;">⚡</div>
+            <h3 class="pillar-title">Dual Code Evaluation</h3>
+            <p class="pillar-desc">
+              Combines an isolated subprocess runner with 3.0s timeout and shell-injection shields, 
+              plus a static Abstract Syntax Tree (AST) analyzer computing Cyclomatic Complexity and Big-O loop nesting.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">🎯</div>
+            <h3 class="pillar-title">RAG-Grounded Rubric</h3>
+            <p class="pillar-desc">
+              Anchors evaluation prompts to verified company benchmark chunks using hybrid BM25 and cosine vector search. 
+              Eliminates grading hallucination and renders interactive Canvas Radar Charts.
+            </p>
+          </div>
+        </div>
+
+        <!-- 5-Dimensional Rubric Showcase -->
+        <h2 class="home-section-title">The 5-Dimensional Hiring Rubric</h2>
+        <p class="home-section-sub">Modeled directly after Google, Meta, and Amazon engineering bar raisers</p>
+        
+        <div class="rubric-preview-grid">
+          <div class="rubric-badge-card">
+            <div class="rubric-badge-weight">30%</div>
+            <div class="rubric-badge-name">Correctness</div>
+            <div class="rubric-badge-desc">Public unit tests, hidden boundary limits, duplicates, and edge traps.</div>
+          </div>
+          <div class="rubric-badge-card">
+            <div class="rubric-badge-weight">20%</div>
+            <div class="rubric-badge-name">Complexity</div>
+            <div class="rubric-badge-desc">Asymptotic Big-O time and auxiliary space verified by AST nesting.</div>
+          </div>
+          <div class="rubric-badge-card">
+            <div class="rubric-badge-weight">20%</div>
+            <div class="rubric-badge-name">Code Quality</div>
+            <div class="rubric-badge-desc">McCabe cyclomatic complexity, idiomatic naming, and clean modularity.</div>
+          </div>
+          <div class="rubric-badge-card">
+            <div class="rubric-badge-weight">15%</div>
+            <div class="rubric-badge-name">Problem Solving</div>
+            <div class="rubric-badge-desc">Optimal pattern recognition (Hash Map, Two Pointers, DP, Intervals).</div>
+          </div>
+          <div class="rubric-badge-card">
+            <div class="rubric-badge-weight">15%</div>
+            <div class="rubric-badge-name">Communication</div>
+            <div class="rubric-badge-desc">Verbal thought process walkthrough, articulation, and hint responsiveness.</div>
+          </div>
+        </div>
+
+        <!-- Quick Problem Launcher Section -->
+        <h2 class="home-section-title">Quick Start Coding Arena</h2>
+        <p class="home-section-sub">Select any benchmark problem to immediately launch the live coding sandbox</p>
+
+        <div class="quick-problems-grid">
+          <div class="problem-card-launch" onclick="launchProblemFromHome('two-sum')">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-easy">Easy</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">O(N) Time</span>
+            </div>
+            <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 0.3rem;">Two Sum</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Hash map complement lookup</p>
+          </div>
+
+          <div class="problem-card-launch" onclick="launchProblemFromHome('valid-parentheses')">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-easy">Easy</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">O(N) Stack</span>
+            </div>
+            <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 0.3rem;">Valid Parentheses</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">LIFO stack bracket invariants</p>
+          </div>
+
+          <div class="problem-card-launch" onclick="launchProblemFromHome('max-subarray')">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-medium">Medium</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">O(N) DP</span>
+            </div>
+            <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 0.3rem;">Maximum Subarray</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Kadane's dynamic programming</p>
+          </div>
+
+          <div class="problem-card-launch" onclick="launchProblemFromHome('lru-cache')">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-hard">Hard</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">O(1) DLL</span>
+            </div>
+            <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 0.3rem;">LRU Cache</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Hash Map + Doubly Linked List</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 1: LIVE INTERVIEW ARENA ================= -->
+    <section id="tab-arena" class="tab-pane">
+      <!-- Toolbar -->
+      <div class="interview-toolbar">
+        <div class="question-select-wrapper">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Select Problem:</label>
+          <select id="question-selector" class="custom-select">
+            <!-- Dynamically populated -->
+          </select>
+          <span id="difficulty-badge" class="badge badge-easy">Easy</span>
+          <span id="problem-category" class="meta-pill">Arrays & Hashing</span>
+          <button id="btn-open-custom-modal" class="btn-secondary" style="font-size: 0.75rem; padding: 0.3rem 0.6rem; color: var(--accent-cyan); border-color: rgba(6, 182, 212, 0.4);">➕ Add Custom Problem</button>
+          <button id="btn-reset-questions" class="btn-secondary" style="font-size: 0.75rem; padding: 0.3rem 0.6rem; color: var(--text-muted);" title="Reset to standard FAANG benchmark questions">🔄 Reset Defaults</button>
+        </div>
+        <div style="display: flex; gap: 0.6rem;">
+          <button id="btn-run-tests" class="btn-primary">▶ Run Tests</button>
+          <button id="btn-evaluate" class="btn-success">🏆 Submit for Rubric Evaluation</button>
+        </div>
+      </div>
+
+      <!-- Workspace 3-Column Grid -->
+      <div class="workspace-grid">
+        
+        <!-- Column 1: Problem Specifications & Constraints -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Problem Specification</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">FAANG Standard</span>
+          </div>
+          <div class="panel-body">
+            <h2 id="problem-title" class="problem-title">Two Sum</h2>
+            <div class="problem-meta">
+              <span class="meta-pill">Target Time: <b id="target-time">O(N)</b></span>
+              <span class="meta-pill">Target Space: <b id="target-space">O(N)</b></span>
+            </div>
+            <div id="problem-desc" class="problem-desc">
+              Loading problem statement...
+            </div>
+
+            <div class="section-label">Grounded Evaluation Rubric</div>
+            <div class="example-box">
+              <strong>Grading Dimensions:</strong><br>
+              • Correctness (30%): Hidden bounds, duplicates.<br>
+              • Complexity (20%): Must match target Big-O.<br>
+              • Code Quality (20%): Idiomatic clean code.<br>
+              • Problem Solving (15%): Systematic pattern.<br>
+              • Communication (15%): Thought process.
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Code Editor & Sandboxed Test Runner -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Python 3 Candidate Solution</h3>
+            <span style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono);">Subprocess Sandbox Active</span>
+          </div>
+          <div class="editor-container">
+            <textarea id="code-editor" class="editor-textarea" spellcheck="false"></textarea>
+            
+            <!-- Test Runner Output Area -->
+            <div class="test-results-drawer" id="test-runner-output">
+              <span style="color: var(--text-muted);">Click "Run Tests" to execute against public & hidden test suites.</span>
+            </div>
+
+            <div class="editor-footer">
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Tab key indented (4 spaces) • Timeout: 3.0s limit</span>
+              <button id="btn-reset-code" class="btn-secondary">Reset Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Socratic AI Interviewer -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Socratic Interviewer</h3>
+            <span style="font-size: 0.72rem; color: var(--accent-emerald);">● AI Active</span>
+          </div>
+          <div class="panel-body" style="display: flex; flex-direction: column;">
+            <div id="chat-messages" class="chat-messages">
+              <!-- Dynamically populated -->
+            </div>
+
+            <div style="display: flex; gap: 0.3rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+              <button class="btn-secondary quick-hint-btn" data-prompt="Can you give me an algorithmic hint?" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">💡 Hint</button>
+              <button class="btn-secondary quick-hint-btn" data-prompt="What edge cases should I consider?" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">⚠️ Edge Cases</button>
+              <button class="btn-secondary quick-hint-btn" data-prompt="How is my time complexity looking?" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">⏱️ Complexity</button>
+            </div>
+
+            <div class="chat-input-row">
+              <input id="chat-input" class="chat-input" type="text" placeholder="Explain your approach or ask a question...">
+              <button id="btn-chat-send" class="btn-primary" style="padding: 0.5rem 0.8rem;">Send</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: RUBRIC EVALUATION SCORECARD ================= -->
+    <section id="tab-eval" class="tab-pane">
+      <div class="eval-dashboard-grid">
+        
+        <!-- Left: Overall Score & Radar Chart -->
+        <div class="scorecard-summary-card">
+          <h2 style="font-size: 1.1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Hiring Committee Verdict</h2>
+          <div id="eval-overall-score" class="big-score">--</div>
+          <div><span id="eval-recommendation" class="recommendation-pill">Awaiting Evaluation</span></div>
+          <p id="eval-verdict" style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 1rem; line-height: 1.5;">
+            Submit your solution in the Interview Arena to generate the 5-dimensional rubric evaluation.
+          </p>
+
+          <!-- Canvas Radar Chart -->
+          <div class="radar-canvas-box">
+            <canvas id="radarChart" width="320" height="280"></canvas>
+          </div>
+
+          <!-- Static AST Metrics Panel -->
+          <div style="background: rgba(0,0,0,0.3); padding: 0.85rem; border-radius: 8px; text-align: left; font-size: 0.8rem; font-family: var(--font-mono);">
+            <strong style="color: var(--accent-cyan); display: block; margin-bottom: 0.4rem;">Static AST Code Analysis</strong>
+            <div>Cyclomatic Complexity: <span id="ast-cyclomatic" style="color: #fff;">--</span></div>
+            <div>Max Loop Nesting: <span id="ast-nesting" style="color: #fff;">--</span></div>
+            <div>Recursion Detected: <span id="ast-recursion" style="color: #fff;">--</span></div>
+            <div>Detected Time: <span id="eval-time-detected" style="color: var(--accent-emerald);">--</span></div>
+            <div>Detected Space: <span id="eval-space-detected" style="color: var(--accent-emerald);">--</span></div>
+          </div>
+        </div>
+
+        <!-- Right: Dimension Cards & Improvement Plan -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          
+          <!-- Strengths & Growth Areas -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 1rem;">
+              <h4 style="color: #34d399; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase;">Key Candidate Strengths</h4>
+              <ul id="eval-strengths-list" style="list-style: none; font-size: 0.82rem; color: #e2e8f0; line-height: 1.6;">
+                <li>Awaiting evaluation...</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 8px; padding: 1rem;">
+              <h4 style="color: #fbbf24; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase;">Actionable Growth Areas</h4>
+              <ul id="eval-growth-list" style="list-style: none; font-size: 0.82rem; color: #e2e8f0; line-height: 1.6;">
+                <li>Awaiting evaluation...</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Dimension Breakdown -->
+          <div>
+            <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; text-transform: uppercase; color: var(--text-muted);">
+              Granular Rubric Breakdown (Tier-1 Standard with Citations)
+            </h3>
+            <div id="rubric-cards-container" class="rubric-cards-list">
+              <span style="color: var(--text-muted); font-size: 0.85rem;">Click "Submit for Rubric Evaluation" in the Arena to view detailed dimensional breakdowns.</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: RAG ARCHITECTURE INSPECTOR ================= -->
+    <section id="tab-rag" class="tab-pane">
+      <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 700;">Retrieval-Augmented Generation (RAG) Architecture Inspector</h2>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">
+            Demonstrating how grounding with benchmark rubric vectors eliminates LLM hallucination in interview scoring.
+          </p>
+        </div>
+        <button id="btn-run-rag-compare" class="btn-primary" style="background: linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan));">
+          ⚖️ Compare RAG ON vs RAG OFF
+        </button>
+      </div>
+
+      <!-- Real Document Ingestion Box -->
+      <div class="panel" style="margin-bottom: 1.5rem;">
+        <div class="panel-header">
+          <h3>Real Knowledge Ingestion (Upload Rubric / Notes)</h3>
+          <span style="font-size: 0.75rem; color: var(--accent-cyan);">TXT / Markdown Document Chunking</span>
+        </div>
+        <div class="panel-body" style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+          <div>
+            <div style="display: flex; gap: 0.4rem; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Quick Sample Notes:</span>
+              <button type="button" id="btn-sample-faang-rubric" class="btn-secondary" style="font-size: 0.72rem; padding: 0.2rem 0.55rem; color: var(--accent-cyan); border-color: rgba(6,182,212,0.4);">⚡ Sample FAANG Rubric</button>
+              <button type="button" id="btn-sample-clean-code" class="btn-secondary" style="font-size: 0.72rem; padding: 0.2rem 0.55rem; color: var(--accent-emerald); border-color: rgba(16,185,129,0.4);">⚡ Concurrency & Design Notes</button>
+            </div>
+            <textarea id="rag-upload-content" class="editor-textarea" style="height: 100px; width: 100%; border-radius: 6px; padding: 0.5rem; font-size: 0.8rem;" placeholder="Paste company interview guidelines, rubric markdown, or reference notes to dynamically chunk and vector-index..."></textarea>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+              <input id="rag-upload-filename" type="text" placeholder="filename.md" value="company_rubric.md" class="chat-input" style="flex: 1;">
+              <button id="btn-submit-rag-upload" class="btn-primary">📥 Ingest & Chunk Document</button>
+            </div>
+          </div>
+          <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.75rem; font-size: 0.8rem;">
+            <strong style="color: #fff; display: block; margin-bottom: 0.4rem;">Ingestion Status:</strong>
+            <div id="rag-ingest-status" style="color: var(--text-muted);">Ready to ingest custom documents into hybrid index.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-Stage Architectural Flow Cards -->
+      <div class="rag-flow-container">
+        <div class="rag-step-card">
+          <div class="rag-step-num">Stage 01</div>
+          <strong style="color: #fff; display: block; margin: 0.3rem 0;">Knowledge Ingestion</strong>
+          <p style="font-size: 0.78rem; color: #94a3b8;">
+            Curated problems, optimal proofs, and uploaded documents divided into overlapping semantic chunks with metadata.
+          </p>
+        </div>
+
+        <div class="rag-step-card">
+          <div class="rag-step-num">Stage 02</div>
+          <strong style="color: #fff; display: block; margin: 0.3rem 0;">Dual Hybrid Retrieval</strong>
+          <p style="font-size: 0.78rem; color: #94a3b8;">
+            Blends <strong>Okapi BM25</strong> term frequencies with <strong>Cosine Semantic Similarity</strong> vectors (Hybrid Score = 0.5·BM25 + 0.5·Cosine).
+          </p>
+        </div>
+
+        <div class="rag-step-card">
+          <div class="rag-step-num">Stage 03</div>
+          <strong style="color: #fff; display: block; margin: 0.3rem 0;">Prompt Grounding & Citations</strong>
+          <p style="font-size: 0.78rem; color: #94a3b8;">
+            Injects exact chunk citations [chunk_id]. Expresses uncertainty if hybrid similarity is below confidence threshold (&lt;0.35).
+          </p>
+        </div>
+
+        <div class="rag-step-card">
+          <div class="rag-step-num">Stage 04</div>
+          <strong style="color: #fff; display: block; margin: 0.3rem 0;">Auditable JSON Evaluation</strong>
+          <p style="font-size: 0.78rem; color: #94a3b8;">
+            Produces validated rubric scores with verifiable source citations, eliminating scoring drift and hallucinated rules.
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Retrieved Chunks View with Transparent Score Breakdown -->
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Retrieved Ground Truth Rubric Chunks for Active Problem</h3>
+          <span style="font-size: 0.75rem; color: var(--accent-emerald);">Transparent Scoring: BM25 Lexical + Cosine Dot Product</span>
+        </div>
+        <div class="panel-body" id="rag-chunks-container">
+          <!-- Dynamically populated with hybrid metrics -->
+        </div>
+      </div>
+
+      <!-- RAG ON vs RAG OFF Comparison Modal / Drawer -->
+      <div id="rag-compare-box" class="panel" style="margin-top: 1.5rem; display: none;">
+        <div class="panel-header">
+          <h3>RAG Grounded vs Naive Prompting (RAG ON vs RAG OFF)</h3>
+          <button class="btn-secondary" onclick="document.getElementById('rag-compare-box').style.display='none'" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">✕ Close</button>
+        </div>
+        <div class="panel-body" id="rag-compare-content">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Settings Modal (AI Provider Configuration) -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 style="font-size: 1.15rem; margin-bottom: 0.4rem; color: #fff;">Google Gemini AI Configuration</h3>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Configure the Google Gemini LLM powering real-time Socratic coaching, dynamic hints, and 5-dimensional rubric scoring.
+      </p>
+
+      <div style="margin-bottom: 1rem;">
+        <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Gemini Model:</label>
+        <select id="gemini-model-select" class="custom-select" style="width: 100%;">
+          <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended - Sub-second latency)</option>
+          <option value="gemini-1.5-pro">Gemini 1.5 Pro (Deep Architectural Reasoning)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.3rem;">Google Gemini API Key:</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input id="gemini-api-key-input" type="password" placeholder="AIzaSy... (or set GEMINI_API_KEY in terminal)" class="chat-input" style="flex: 1;">
+          <button id="btn-test-connection" class="btn-secondary" style="font-size: 0.8rem;">🧪 Test Connection</button>
+        </div>
+        <div id="test-connection-status" style="margin-top: 0.4rem; font-size: 0.75rem; color: var(--text-muted);">
+          Key is securely stored in backend memory / environment. Never exposed in frontend client code.
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.25rem;">
+        <button id="btn-close-modal" class="btn-secondary">Cancel</button>
+        <button id="btn-save-key" class="btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Problem Modal -->
+  <div id="custom-problem-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 600px;">
+      <h3 style="font-size: 1.15rem; margin-bottom: 0.3rem; color: #fff;">Add Custom Coding Problem</h3>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+        Dynamically chunk, vector-index, and evaluate any custom coding question with real-time RAG grounding.
+      </p>
+
+      <div style="display: flex; gap: 0.4rem; margin-bottom: 0.85rem; align-items: center; flex-wrap: wrap;">
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Auto-fill Templates:</span>
+        <button type="button" class="btn-secondary q-template-btn" data-template="twosum" style="font-size: 0.72rem; padding: 0.2rem 0.55rem; color: var(--accent-cyan); border-color: rgba(6,182,212,0.4);">⚡ Two Sum</button>
+        <button type="button" class="btn-secondary q-template-btn" data-template="palindrome" style="font-size: 0.72rem; padding: 0.2rem 0.55rem; color: var(--accent-emerald); border-color: rgba(16,185,129,0.4);">⚡ Palindrome</button>
+        <button type="button" class="btn-secondary q-template-btn" data-template="math" style="font-size: 0.72rem; padding: 0.2rem 0.55rem; color: var(--accent-amber); border-color: rgba(245,158,11,0.4);">⚡ Simple Square</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Problem Title:</label>
+          <input id="custom-q-title" type="text" placeholder="e.g. Palindrome Number" class="chat-input" style="width: 100%;">
+        </div>
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Difficulty:</label>
+          <select id="custom-q-difficulty" class="custom-select" style="width: 100%;">
+            <option value="Easy">Easy</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Category:</label>
+          <input id="custom-q-category" type="text" placeholder="e.g. Strings & Math" class="chat-input" style="width: 100%;">
+        </div>
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Target Time:</label>
+          <input id="custom-q-time" type="text" placeholder="e.g. O(log N)" value="O(N)" class="chat-input" style="width: 100%;">
+        </div>
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Target Space:</label>
+          <input id="custom-q-space" type="text" placeholder="e.g. O(1)" value="O(1)" class="chat-input" style="width: 100%;">
+        </div>
+      </div>
+
+      <div style="margin-bottom: 0.75rem;">
+        <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Problem Description:</label>
+        <textarea id="custom-q-desc" class="editor-textarea" style="height: 70px; width: 100%; border-radius: 6px; padding: 0.5rem; font-size: 0.8rem;" placeholder="Given an integer x, return true if x is a palindrome..."></textarea>
+      </div>
+
+      <div style="margin-bottom: 0.75rem;">
+        <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Entrypoint Function Name:</label>
+        <input id="custom-q-entrypoint" type="text" placeholder="e.g. is_palindrome" value="is_palindrome" class="chat-input" style="width: 100%;">
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Test Cases (JSON format):</label>
+        <textarea id="custom-q-tests" class="editor-textarea" style="height: 60px; width: 100%; border-radius: 6px; padding: 0.5rem; font-size: 0.78rem;" spellcheck="false">[{"id": 1, "input_args": ["racecar"], "expected": true}, {"id": 2, "input_args": ["hello"], "expected": false}]</textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button id="btn-close-custom-modal" class="btn-secondary">Cancel</button>
+        <button id="btn-save-custom-q" class="btn-primary">➕ Index into RAG & Load</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
